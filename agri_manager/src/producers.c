@@ -155,7 +155,6 @@ void delete_producer(void) {
         return;
     }
 
-    // Constraint Check: Un producteur ne peut etre supprime que si aucun produit ne lui est associe.
     FILE *fp = fopen(FILE_PRODUCTS, "rb");
     if (fp) {
         Product prd;
@@ -170,7 +169,6 @@ void delete_producer(void) {
         fclose(fp);
     }
 
-    // Perform deletion by copying to temp file
     FILE *f = fopen(FILE_PRODUCERS, "rb");
     FILE *ftemp = fopen("DATABASE/PRODUCERS_TMP.dat", "wb");
     if (!f || !ftemp) return;
