@@ -93,7 +93,6 @@ void process_delivery(void) {
     del.idCommande = ord.id;
     get_current_date(del.date_reelle_livraison, sizeof(del.date_reelle_livraison));
 
-    // Calculate delay days comparing real delivery date with expected delivery date
     int days_diff = calculate_days_difference(ord.date_prevue_livraison, del.date_reelle_livraison);
     if (days_diff > 0) {
         del.nb_jours_retard = days_diff;
@@ -103,7 +102,6 @@ void process_delivery(void) {
         del.montant_penalite = 0.0;
     }
 
-    // Save Delivery record
     FILE *fd = fopen(FILE_DELIVERIES, "ab");
     if (!fd) {
         printf("[ERREUR] Impossible d'ouvrir le fichier des livraisons.\n");
@@ -112,7 +110,6 @@ void process_delivery(void) {
     fwrite(&del, sizeof(Delivery), 1, fd);
     fclose(fd);
 
-    // Update Order state to LIVRÉ
     FILE *fo = fopen(FILE_ORDERS, "rb+");
     if (fo) {
         Order tmp_o;
@@ -127,10 +124,8 @@ void process_delivery(void) {
         fclose(fo);
     }
 
-    // Update total stock (deduct delivered volume from total stock)
     update_product_stock(prd.id, 0, -ord.quantite_commandee);
 
-    // If there was a delay, record penalty in LOSSES.dat
     if (del.nb_jours_retard > 0) {
         Loss loss;
         memset(&loss, 0, sizeof(Loss));
@@ -146,7 +141,6 @@ void process_delivery(void) {
         printf("Pénalité financiere enregistree : %.2f FCFA (5000 FCFA / jour)\n", del.montant_penalite);
     }
 
-    // Generate Delivery Receipt
     generate_delivery_receipt(&del, &ord, &usr, &prd);
 
     char log_msg[250];
