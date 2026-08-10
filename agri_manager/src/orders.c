@@ -85,7 +85,6 @@ void create_order(void) {
         return;
     }
 
-    // Rule 1: Limite de commande : Un utilisateur ne peut pas avoir plus de 3 commandes actives non reglees en meme temps.
     int active_orders = count_active_orders_for_user(g_current_user.id);
     if (active_orders >= 3) {
         printf("\n[ERREUR CONTRAINTE] Limite atteinte ! Vous avez deja %d commandes actives non reglees.\n", active_orders);
@@ -137,7 +136,6 @@ void create_order(void) {
     o.montant_total = qty * prd.prix_unitaire;
 
     get_current_date(o.date_commande, sizeof(o.date_commande));
-    // Rule 2: Max delivery delay is 7 days maximum
     get_future_date_days(7, o.date_prevue_livraison, sizeof(o.date_prevue_livraison));
     strcpy(o.etat, "EN_COURS");
 
@@ -149,10 +147,8 @@ void create_order(void) {
     fwrite(&o, sizeof(Order), 1, f);
     fclose(f);
 
-    // Update product available stock
     update_product_stock(prd.id, -qty, 0);
 
-    // Generate receipt
     generate_order_receipt(&o, &g_current_user, &prd);
 
     char log_msg[200];
