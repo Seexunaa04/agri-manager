@@ -75,7 +75,6 @@ void create_reservation(void) {
         return;
     }
 
-    // Constraint check: Un utilisateur ne peut reserver que des produits dont le stock disponible actuel est egal a zero (recolte future).
     if (prd.quantite_disponible > 0) {
         printf("\n[ERREUR CONTRAINTE] Vous ne pouvez pas réserver ce produit car du stock est actuellement DISPONIBLE (%.2f %s disponible(s)).\n",
                prd.quantite_disponible, prd.unite_mesure);
