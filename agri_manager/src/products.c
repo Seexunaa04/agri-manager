@@ -5,7 +5,6 @@
 #include "../include/auth.h"
 #include "../include/reports.h"
 
-// Forward declaration of reservation check
 void check_and_activate_pending_reservations(int id_product);
 
 int get_next_product_id(void) {
@@ -67,7 +66,6 @@ int update_product_stock(int id_product, double delta_available, double delta_to
             fwrite(&p, sizeof(Product), 1, f);
             success = 1;
 
-            // If stock was increased, check and activate harvest reservations!
             if (delta_available > 0 || delta_total > 0) {
                 check_and_activate_pending_reservations(id_product);
             }
@@ -85,7 +83,6 @@ void add_product(void) {
     memset(&p, 0, sizeof(Product));
     p.id = get_next_product_id();
 
-    // Check unique SKU code
     while (1) {
         read_string("Code Produit (unique ex: PRD9781234567890) : ", p.codeProduit, sizeof(p.codeProduit));
         if (strlen(p.codeProduit) == 0) {
@@ -102,7 +99,6 @@ void add_product(void) {
 
     read_string("Designation / Titre (ex: Mangue Kent - 50Kg) : ", p.designation, sizeof(p.designation));
 
-    // Validate Producer
     list_producers();
     while (1) {
         p.idProducteur = read_int("\nID du Producteur : ");
@@ -114,7 +110,6 @@ void add_product(void) {
         break;
     }
 
-    // Validate Category
     list_categories();
     while (1) {
         p.idCategorie = read_int("\nID de la Categorie : ");
@@ -143,7 +138,6 @@ void add_product(void) {
     fwrite(&p, sizeof(Product), 1, f);
     fclose(f);
 
-    // Increment product count for producer
     increment_producer_product_count(p.idProducteur, 1);
 
     char log_msg[200];
