@@ -50,7 +50,7 @@ int find_user_by_id(int id, User *out_user) {
 void seed_default_admin(void) {
     FILE *f = fopen(FILE_USERS, "rb");
     if (!f) {
-        // Create initial default admin
+    
         User admin;
         memset(&admin, 0, sizeof(User));
         admin.id = 1;
@@ -59,13 +59,13 @@ void seed_default_admin(void) {
         strcpy(admin.telephone, "00000000");
         strcpy(admin.adresse, "Centrale AGRI-MANAGER");
         strcpy(admin.email, "admin@agrimanager.org");
-        strcpy(admin.login, "ADMINS"); // Exactly 6 uppercase
+        strcpy(admin.login, "ADMINS"); 
         encrypt_password("Agri123", admin.password);
         strcpy(admin.role, "ADMIN");
         strcpy(admin.etat, "ACTIF");
         get_current_date(admin.date_creation, sizeof(admin.date_creation));
         strcpy(admin.date_derniere_connexion, "Jamais");
-        admin.first_login = 1; // Mandatory pass change
+        admin.first_login = 1; 
 
         FILE *fout = fopen(FILE_USERS, "wb");
         if (fout) {
@@ -117,7 +117,6 @@ int login_user(const char *login, const char *password) {
         return 0;
     }
 
-    // Update last connection date
     get_current_date(u.date_derniere_connexion, sizeof(u.date_derniere_connexion));
     fseek(f, pos, SEEK_SET);
     fwrite(&u, sizeof(User), 1, f);
@@ -126,7 +125,7 @@ int login_user(const char *login, const char *password) {
     g_current_user = u;
     g_is_logged_in = 1;
 
-    // Check first login constraint
+   
     if (u.first_login == 1) {
         printf("\n=======================================================\n");
         printf(" [ATTENTION] Premiere connexion detectee.\n");
@@ -233,7 +232,7 @@ void admin_register_user(void) {
         strcpy(u.role, "USER");
     }
 
-    // Default password Agri123
+    
     encrypt_password("Agri123", u.password);
     strcpy(u.etat, "ACTIF");
     get_current_date(u.date_creation, sizeof(u.date_creation));
