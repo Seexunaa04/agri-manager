@@ -11,4 +11,4 @@ int find_producer_by_id(int id, Producer *out_producer);
 int get_next_producer_id(void);
 void increment_producer_product_count(int producer_id, int delta);
 
-#endif // PRODUCERS_H
+#endif
