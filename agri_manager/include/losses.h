@@ -9,4 +9,4 @@ void list_losses(void);
 int get_next_loss_id(void);
 double get_total_losses_amount(void);
 
-#endif // LOSSES_H
+#endif 
