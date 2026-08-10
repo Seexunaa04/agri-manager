@@ -9,4 +9,4 @@ void list_user_reservations(int user_id);
 int get_next_reservation_id(void);
 void check_and_activate_pending_reservations(int id_product);
 
-#endif // RESERVATIONS_H
+#endif 
