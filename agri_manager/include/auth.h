@@ -12,7 +12,6 @@ void logout_user(void);
 int change_password(User *user, const char *new_pass);
 int force_first_login_password_change(User *user);
 
-// Admin functions
 void admin_register_user(void);
 void admin_list_users(void);
 void admin_toggle_user_status(void);
@@ -20,4 +19,4 @@ int find_user_by_id(int id, User *out_user);
 int find_user_by_login(const char *login, User *out_user);
 int get_next_user_id(void);
 
-#endif // AUTH_H
+#endif 
