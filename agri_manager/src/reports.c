@@ -47,7 +47,7 @@ void generate_daily_report(void) {
 
     char today_str[20];
     get_current_date(today_str, sizeof(today_str));
-    // extract DD/MM/YYYY part
+    
     char today_prefix[12];
     strncpy(today_prefix, today_str, 10);
     today_prefix[10] = '\0';
@@ -58,7 +58,6 @@ void generate_daily_report(void) {
     int new_users_count = 0;
     int new_producers_count = 0;
 
-    // 1. Orders count today
     FILE *fo = fopen(FILE_ORDERS, "rb");
     if (fo) {
         Order o;
@@ -70,7 +69,6 @@ void generate_daily_report(void) {
         fclose(fo);
     }
 
-    // 2. Deliveries count today
     FILE *fd = fopen(FILE_DELIVERIES, "rb");
     if (fd) {
         Delivery d;
@@ -82,7 +80,6 @@ void generate_daily_report(void) {
         fclose(fd);
     }
 
-    // 3. Reservations count today
     FILE *fr = fopen(FILE_RESERVATIONS, "rb");
     if (fr) {
         Reservation r;
@@ -94,7 +91,6 @@ void generate_daily_report(void) {
         fclose(fr);
     }
 
-    // 4. New users today
     FILE *fu = fopen(FILE_USERS, "rb");
     if (fu) {
         User u;
@@ -106,7 +102,6 @@ void generate_daily_report(void) {
         fclose(fu);
     }
 
-    // 5. Total losses in FCFA
     double total_losses = 0.0;
     FILE *fl = fopen(FILE_LOSSES, "rb");
     if (fl) {
@@ -117,14 +112,13 @@ void generate_daily_report(void) {
         fclose(fl);
     }
 
-    // 6. Most sold product
     char top_product_name[100] = "Aucun";
     double max_qty_sold = 0.0;
     FILE *fp = fopen(FILE_PRODUCTS, "rb");
     if (fp) {
         Product p;
         while (fread(&p, sizeof(Product), 1, fp) == 1) {
-            // sum up sales from orders
+           
             double product_total_qty = 0.0;
             FILE *fo2 = fopen(FILE_ORDERS, "rb");
             if (fo2) {
@@ -144,7 +138,6 @@ void generate_daily_report(void) {
         fclose(fp);
     }
 
-    // 7. Most active buyer
     char top_buyer_name[100] = "Aucun";
     int max_buyer_orders = 0;
     FILE *fu2 = fopen(FILE_USERS, "rb");
