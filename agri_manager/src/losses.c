@@ -73,7 +73,6 @@ void add_manual_spoilage_loss(void) {
 
     record_loss(&l);
 
-    // Deduct stock total and available
     update_product_stock(prd.id, -qty_spoiled, -qty_spoiled);
 
     char log_msg[250];
