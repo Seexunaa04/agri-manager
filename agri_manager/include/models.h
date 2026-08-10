@@ -17,7 +17,7 @@
 #define MAX_CODE_LEN 30
 #define MAX_DESC_LEN 200
 
-// File paths
+
 #define DIR_DATABASE "DATABASE"
 #define DIR_REPORTS "REPORTS"
 #define DIR_REPORTS_ORDERS "REPORTS/ORDERS"
@@ -34,7 +34,6 @@
 #define FILE_LOSSES "DATABASE/LOSSES.dat"
 #define FILE_HISTORY "REPORTS/HISTORY.txt"
 
-// 1. User structure
 typedef struct {
     int id;
     char nom[MAX_NAME_LEN];
@@ -42,16 +41,15 @@ typedef struct {
     char telephone[MAX_PHONE_LEN];
     char adresse[MAX_ADDR_LEN];
     char email[MAX_EMAIL_LEN];
-    char login[MAX_LOGIN_LEN]; // Exactly 6 uppercase chars + '\0'
-    char password[MAX_PASS_LEN]; // Encrypted
-    char role[MAX_ROLE_LEN]; // "ADMIN" or "USER"
-    char etat[MAX_STATE_LEN]; // "ACTIF" or "BLOQUÉ"
+    char login[MAX_LOGIN_LEN]; 
+    char password[MAX_PASS_LEN]; 
+    char role[MAX_ROLE_LEN]; 
+    char etat[MAX_STATE_LEN]; 
     char date_creation[MAX_DATE_LEN];
     char date_derniere_connexion[MAX_DATE_LEN];
-    int first_login; // 1 = must change password, 0 = changed
+    int first_login; 
 } User;
 
-// 2. Producer structure
 typedef struct {
     int id;
     char nom_complet[MAX_NAME_LEN * 2];
@@ -61,7 +59,6 @@ typedef struct {
     int nb_produits_enregistres;
 } Producer;
 
-// 3. Category structure
 typedef struct {
     int id;
     char libelle[MAX_NAME_LEN];
@@ -69,36 +66,34 @@ typedef struct {
     char date_creation[MAX_DATE_LEN];
 } Category;
 
-// 4. Product structure
 typedef struct {
     int id;
-    char codeProduit[MAX_CODE_LEN]; // Unique SKU/Barcode
+    char codeProduit[MAX_CODE_LEN]; 
     char designation[MAX_NAME_LEN * 2];
     int idProducteur;
     int idCategorie;
-    char unite_mesure[MAX_PHONE_LEN]; // Kg, Tonne, Sac, Caisse
-    double prix_unitaire; // FCFA
+    char unite_mesure[MAX_PHONE_LEN]; 
+    double prix_unitaire; 
     double quantite_totale_stock;
     double quantite_disponible;
     char emplacement[MAX_NAME_LEN];
-    int duree_conservation; // In days
+    int duree_conservation; 
     char date_recolte[MAX_DATE_LEN];
 } Product;
 
-// 5. Order structure
 typedef struct {
     int id;
-    char numero_commande[MAX_CODE_LEN]; // Format CMD_AAAAMMJJHHMMSS
+    char numero_commande[MAX_CODE_LEN]; 
     int idUtilisateur;
     int idProduit;
     double quantite_commandee;
     double montant_total;
     char date_commande[MAX_DATE_LEN];
     char date_prevue_livraison[MAX_DATE_LEN];
-    char etat[MAX_STATE_LEN]; // EN_COURS, LIVRÉ, EN_RETARD, ANNULÉ
+    char etat[MAX_STATE_LEN]; 
 } Order;
 
-// 6. Delivery structure
+
 typedef struct {
     int idLivraison;
     int idCommande;
@@ -107,24 +102,24 @@ typedef struct {
     double montant_penalite;
 } Delivery;
 
-// 7. Harvest Reservation structure
+
 typedef struct {
     int id;
     int idUtilisateur;
     int idProduit;
     double quantite_reservee;
     char date_reservation[MAX_DATE_LEN];
-    char etat[MAX_STATE_LEN]; // EN_ATTENTE, DISPONIBLE, ANNULÉE
+    char etat[MAX_STATE_LEN]; ÉE
 } Reservation;
 
-// 8. Loss / Penalty structure
+
 typedef struct {
     int id;
-    int idUtilisateur; // or idProducteur
+    int idUtilisateur; 
     int idCommande;
     double nb_jours_retard_ou_quantite_avariee;
     double montant_financier;
     char date_enregistrement[MAX_DATE_LEN];
 } Loss;
 
-#endif // MODELS_H
+#endif 
