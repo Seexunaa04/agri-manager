@@ -12,4 +12,4 @@ int find_product_by_code(const char *code, Product *out_product);
 int get_next_product_id(void);
 int update_product_stock(int id_product, double delta_available, double delta_total);
 
-#endif // PRODUCTS_H
+#endif 
