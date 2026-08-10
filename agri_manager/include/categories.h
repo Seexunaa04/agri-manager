@@ -9,4 +9,4 @@ void edit_category(void);
 int find_category_by_id(int id, Category *out_category);
 int get_next_category_id(void);
 
-#endif // CATEGORIES_H
+#endif 
