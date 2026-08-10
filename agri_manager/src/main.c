@@ -237,10 +237,8 @@ void menu_user(void) {
 }
 
 int main(void) {
-    // Initialize required directories
     init_directories();
 
-    // Ensure default admin exists
     seed_default_admin();
 
     int choice;
